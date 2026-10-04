@@ -16,6 +16,18 @@ Personal Lens Atlas is a CPU-only Windows MVP for personalized eye-contact previ
 
 当前未实现：虚拟摄像头输出、会议软件接入、任意头部角度的自然重建、跨用户通用模型。
 
+## 需求定义与工程推进
+
+这个项目从一开始就不是泛泛的“让瞳孔移动一下”。项目发起阶段把目标、约束和验收顺序写成了可执行的工程协议：
+
+- **真实使用场景**：面试或视频沟通时，使用者看屏幕内容，画面仍尽量呈现为看向物理摄像头镜头；明确不做“眼动追踪鼠标”。
+- **硬约束**：Windows 11、Python 3.11、普通 USB/内置摄像头、CPU、MediaPipe、OpenCV；不改动现有 Python，不依赖 RTX、CUDA 或 NVIDIA Broadcast。
+- **分阶段验收**：先在本地确认 `Original / Corrected` 的真实视觉效果；只有第一阶段稳定，才进入干净输出、虚拟摄像头和会议软件适配。
+- **质量信号可观察**：黑点、双瞳孔、瞳孔越出眼皮、滑条改变但画面无实际改善，都被当作算法失败而不是“再调大一点强度”的问题。
+- **隐私边界**：参考视频、眼区图片和姿态数据必须保留在本机，公开代码不能带入任何可识别的人脸素材。
+
+这些约束直接改变了技术路线：早期的局部瞳孔/眼区实验无法通过大幅转眼时的视觉检查，因此当前默认路线改为个人化“看镜头”参考图集，并让眼皮遮罩优先于任何眼睛替换操作。完整的项目背景、决策依据和接手说明见 [PROJECT_CONTEXT_CN.md](PROJECT_CONTEXT_CN.md)。
+
 ## 为什么做这个项目
 
 常见的轻量级眼神校正方案只在瞳孔附近移动或绘制少量像素。位移较大时，容易留下黑点、双瞳孔，或让瞳孔和眼皮脱离。
@@ -97,6 +109,7 @@ current eyelid aperture mask ─> affine alignment + safe blend ─> preview
 ├── requirements.txt               # 经过验证的 Python 3.11 依赖
 ├── setup_neural_experimental.bat  # 明确确认后才启用的旧 ONNX 实验安装
 ├── THIRD_PARTY_NOTICES.md         # 第三方模型与许可证说明
+├── PROJECT_CONTEXT_CN.md          # 项目背景、决策依据与协作者接手说明
 └── RESUME_CN.md                   # 可直接改写进中文简历的项目内容
 ```
 
@@ -117,6 +130,15 @@ current eyelid aperture mask ─> affine alignment + safe blend ─> preview
 ## 局限与下一步
 
 个人参考库覆盖范围由录制姿态决定，极端侧脸、强遮挡、闭眼和明显光照变化会回退原图。下一阶段需要在视觉效果验证通过后，再增加无覆盖层的干净输出和虚拟摄像头适配，并在会议平台允许的前提下测试。
+
+## 给协作者与 AI Agent 的接手说明
+
+在改代码前请先读 [PROJECT_CONTEXT_CN.md](PROJECT_CONTEXT_CN.md)。当前产品主线是 `atlas_preview.py` + `reference_atlas.py`，而非旧的 ONNX 实验。接手时请保持以下边界：
+
+- 不把项目描述为已实现虚拟摄像头、会议软件接入或 NVIDIA Broadcast 级效果。
+- 不以“固定瞳孔贴图”回退当前方案；当前优先级是眼皮安全、真实参考眼区和不可靠时回退原图。
+- 不提交 `reference_samples/`、`reference_atlas/`、模型权重或虚拟环境；这些目录包含生物特征或本机生成物。
+- 视觉效果必须在真实摄像头画面验证，单元测试只能验证几何、匹配和回退逻辑。
 
 ## 简历表述
 
