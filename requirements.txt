@@ -1,0 +1,9 @@
+# Tested CPU-only dependency set for Windows 11 + CPython 3.11.
+# Do not install both opencv-python and opencv-contrib-python in one environment.
+# MediaPipe requires the contrib flavour; it also supplies cv2.imshow.
+mediapipe==1.0.1
+opencv-contrib-python==5.0.0.93
+# NumPy 2.5+ no longer ships CPython 3.11 wheels.  This is the verified
+# Windows x64 CPython 3.11 wheel for NumPy 2.4.5, pinned by direct URL to
+# prevent older pip versions from scanning NumPy's unusually large index page.
+numpy @ https://files.pythonhosted.org/packages/f0/66/d215f3fb93541617adb5d58b3b9508e8a6413e499711e0adc0b80bcb445d/numpy-2.4.5-cp311-cp311-win_amd64.whl
