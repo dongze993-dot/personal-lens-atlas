@@ -110,7 +110,7 @@ current eyelid aperture mask ─> affine alignment + safe blend ─> preview
 ├── setup_neural_experimental.bat  # 明确确认后才启用的旧 ONNX 实验安装
 ├── THIRD_PARTY_NOTICES.md         # 第三方模型与许可证说明
 ├── PROJECT_CONTEXT_CN.md          # 项目背景、决策依据与协作者接手说明
-└── RESUME_CN.md                   # 可直接改写进中文简历的项目内容
+└── docs/PROJECT_NARRATIVE_CN.md   # 公开作品集叙述与面试复盘
 ```
 
 ## 技术要点
@@ -140,10 +140,11 @@ current eyelid aperture mask ─> affine alignment + safe blend ─> preview
 - 不提交 `reference_samples/`、`reference_atlas/`、模型权重或虚拟环境；这些目录包含生物特征或本机生成物。
 - 视觉效果必须在真实摄像头画面验证，单元测试只能验证几何、匹配和回退逻辑。
 
-## 简历表述
+## 项目叙述与面试复盘
 
-可直接参考 [RESUME_CN.md](RESUME_CN.md)。简历中建议定位为“计算机视觉 / 实时视频处理 MVP”，不要表述为已达到 NVIDIA Broadcast 的质量，或已实现会议软件虚拟摄像头。
+可参考 [docs/PROJECT_NARRATIVE_CN.md](docs/PROJECT_NARRATIVE_CN.md)，了解项目的需求定义、实机反馈、技术取舍与可诚实陈述的能力。简历中建议定位为“计算机视觉 / 实时视频处理 MVP”，不要表述为已达到 NVIDIA Broadcast 的质量，或已实现会议软件虚拟摄像头。
 
 ## 许可证与第三方组件
 
 本仓库代码采用 [MIT License](LICENSE)。MediaPipe、OpenCV、NumPy、ONNX Runtime 和可选的研究模型遵循各自许可证；详细说明见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。研究模型只在本机按需下载，不会作为仓库内容重新分发。
+
